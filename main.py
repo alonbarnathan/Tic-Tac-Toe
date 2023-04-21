@@ -113,7 +113,7 @@ def plotPhoto(turn, x, y):
 
     #top left
     if x <= 166 and y <= 160:
-        if (resultArr[0][0] == 'x' or resultArr[0][0] == 'o'):
+        if(resultArr[0][0] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, OneCrossPosition if piece != circle else OneCirclePosition)
@@ -124,7 +124,7 @@ def plotPhoto(turn, x, y):
 
     #top middle
     if x >= 166 and x <= 322 and y <= 160:
-        if (resultArr[0][1] == 'x' or resultArr[0][1] == 'o'):
+        if (resultArr[0][1] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, TwoCrossPosition if piece != circle else TwoCirclePosition)
@@ -134,7 +134,7 @@ def plotPhoto(turn, x, y):
                 resultArr[0][1] = 'x'
     # top right
     if x >= 322 and y <= 160:
-        if (resultArr[0][2] == 'x' or resultArr[0][2] == 'o'):
+        if(resultArr[0][2] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, ThreeCrossPosition if piece != circle else ThreeCirclePosition)
@@ -144,7 +144,7 @@ def plotPhoto(turn, x, y):
                 resultArr[0][2] = 'x'
     # middle left
     if x <= 166 and y < 322 and y >= 166:
-        if (resultArr[1][0] == 'x' or resultArr[1][0] == 'o'):
+        if(resultArr[1][0] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, FourCrossPosition if piece != circle else FourCirclePosition)
@@ -154,7 +154,7 @@ def plotPhoto(turn, x, y):
                 resultArr[1][0] = 'x'
     # middle middle
     if x >= 166 and x <= 322 and y <= 322 and y >= 166:
-        if (resultArr[1][1] == 'x' or resultArr[1][1] == 'o'):
+        if(resultArr[1][1] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, FiveCrossPosition if piece != circle else FiveCirclePosition)
@@ -166,7 +166,7 @@ def plotPhoto(turn, x, y):
 
     # middle right
     if x >= 322 and y <= 322 and y >= 166:
-        if (resultArr[1][2] == 'x' or resultArr[1][2] == 'o'):
+        if(resultArr[1][2] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, SixCrossPosition if piece != circle else SixCirclePosition)
@@ -178,7 +178,7 @@ def plotPhoto(turn, x, y):
 
     # bottom left
     if x <= 166 and y >= 332:
-        if (resultArr[2][0] == 'x' or resultArr[2][0] == 'o'):
+        if(resultArr[2][0] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, SevenCrossPosition if piece != circle else SevenCirclePosition)
@@ -188,9 +188,10 @@ def plotPhoto(turn, x, y):
                 resultArr[2][0] = 'x'
 
 
+
     #bottom middle
     if x >= 166 and x < 322 and y >= 322:
-        if (resultArr[2][1] == 'x' or resultArr[2][1] == 'o'):
+        if(resultArr[2][1] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, EightCrossPosition if piece != circle else EightCirclePosition)
@@ -200,7 +201,7 @@ def plotPhoto(turn, x, y):
                 resultArr[2][1] = 'x'
     #bottom right
     if x >= 322 and y >= 322:
-        if (resultArr[2][2] == 'x' or resultArr[2][2] == 'o'):
+        if(resultArr[2][2] in ['x', 'o']):
             duplicate = True
         else:
             screen.blit(piece, NineCrossPosition if piece != circle else NineCirclePosition)
