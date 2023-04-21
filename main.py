@@ -96,10 +96,10 @@ pygame.draw.rect(screen, "black", pygame.Rect(10, 322, 480, 6))
 pygame.draw.rect(screen, "black", pygame.Rect(166, 10, 6, 480))
 pygame.draw.rect(screen, "black", pygame.Rect(322, 10, 6, 480))
 
-cross = pygame.image.load("/Users/alon2712/Desktop/XforTicTacToe.png")
+cross = pygame.image.load("XforTicTacToe.png")
 cross = pygame.transform.scale(cross, (130, 130))
 
-circle = pygame.image.load("/Users/alon2712/Desktop/Circle.png")
+circle = pygame.image.load("Circle.png")
 circle = pygame.transform.scale(circle, (170, 170))
 
 
