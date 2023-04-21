@@ -5,11 +5,9 @@ pygame.init()
 screen = pygame.display.set_mode((500, 600))
 clock = pygame.time.Clock()
 running = True
-dt = 0
 
 w, h = 3, 3
 resultArr = [['.' for x in range(w)] for y in range(h)]
-
 global circleWin
 global crossWin
 
@@ -111,106 +109,40 @@ def plotPhoto(turn, x, y):
     if (turn != True):
         piece = circle
 
-    #top left
-    if x <= 166 and y <= 160:
-        if(resultArr[0][0] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, OneCrossPosition if piece != circle else OneCirclePosition)
-            if (piece == circle):
-                resultArr[0][0] = 'o'
-            else:
-                resultArr[0][0] = 'x'
+    if x <= 166:
+        col = 0
+    elif x >= 166 and x <= 322:
+        col = 1
+    else:
+        col = 2
 
-    #top middle
-    if x >= 166 and x <= 322 and y <= 160:
-        if (resultArr[0][1] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, TwoCrossPosition if piece != circle else TwoCirclePosition)
-            if (piece == circle):
-                resultArr[0][1] = 'o'
-            else:
-                resultArr[0][1] = 'x'
-    # top right
-    if x >= 322 and y <= 160:
-        if(resultArr[0][2] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, ThreeCrossPosition if piece != circle else ThreeCirclePosition)
-            if (piece == circle):
-                resultArr[0][2] = 'o'
-            else:
-                resultArr[0][2] = 'x'
-    # middle left
-    if x <= 166 and y < 322 and y >= 166:
-        if(resultArr[1][0] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, FourCrossPosition if piece != circle else FourCirclePosition)
-            if (piece == circle):
-                resultArr[1][0] = 'o'
-            else:
-                resultArr[1][0] = 'x'
-    # middle middle
-    if x >= 166 and x <= 322 and y <= 322 and y >= 166:
-        if(resultArr[1][1] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, FiveCrossPosition if piece != circle else FiveCirclePosition)
-            if (piece == circle):
-                resultArr[1][1] = 'o'
-            else:
-                resultArr[1][1] = 'x'
+    if y <= 160:
+        row = 0
+    elif y <= 322 and y >= 166:
+        row = 1
+    else:
+        row = 2
 
-
-    # middle right
-    if x >= 322 and y <= 322 and y >= 166:
-        if(resultArr[1][2] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, SixCrossPosition if piece != circle else SixCirclePosition)
-            if (piece == circle):
-                resultArr[1][2] = 'o'
-            else:
-                resultArr[1][2] = 'x'
-
-
-    # bottom left
-    if x <= 166 and y >= 332:
-        if(resultArr[2][0] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, SevenCrossPosition if piece != circle else SevenCirclePosition)
-            if (piece == circle):
-                resultArr[2][0] = 'o'
-            else:
-                resultArr[2][0] = 'x'
-
-
-
-    #bottom middle
-    if x >= 166 and x < 322 and y >= 322:
-        if(resultArr[2][1] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, EightCrossPosition if piece != circle else EightCirclePosition)
-            if (piece == circle):
-                resultArr[2][1] = 'o'
-            else:
-                resultArr[2][1] = 'x'
-    #bottom right
-    if x >= 322 and y >= 322:
-        if(resultArr[2][2] in ['x', 'o']):
-            duplicate = True
-        else:
-            screen.blit(piece, NineCrossPosition if piece != circle else NineCirclePosition)
-            if (piece == circle):
-                resultArr[2][2] = 'o'
-            else:
-                resultArr[2][2] = 'x'
-
-
+    positions = [
+        (0, 0, OneCrossPosition, OneCirclePosition),
+        (1, 0, TwoCrossPosition, TwoCirclePosition),
+        (2, 0, ThreeCrossPosition, ThreeCirclePosition),
+        (0, 1, FourCrossPosition, FourCirclePosition),
+        (1, 1, FiveCrossPosition, FiveCirclePosition),
+        (2, 1, SixCrossPosition, SixCirclePosition),
+        (0, 2, SevenCrossPosition, SevenCirclePosition),
+        (1, 2, EightCrossPosition, EightCirclePosition),
+        (2, 2, NineCrossPosition, NineCirclePosition)
+    ]
+    #pos = (col, row)
+    for i in range(0, 9):
+        if(positions[i][0] == col and positions[i][1] == row):
+            break
+    if resultArr[row][col] in ['x', 'o']:
+        duplicate = True
+    else:
+        screen.blit(piece, positions[i][2] if piece == cross else positions[i][3])
+        resultArr[row][col] = 'o' if piece == circle else 'x'
 
 
 pygame.display.set_caption("Text Demo")
@@ -218,7 +150,6 @@ pygame.display.set_caption("Text Demo")
 # Create a font object
 font = pygame.font.Font(None, 36)
 winFont = pygame.font.Font(None, 80)
-
 
 # Create a text surface
 xText = font.render("It's X's turn", True, (255, 0, 0))
@@ -230,10 +161,6 @@ oWins = winFont.render("o WINS !!!", True, "black")
 def mainloop():
     xTurn = True
     while running:
-        # poll for events
-
-        # pygame.QUIT event means the user clicked X to close your window
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -254,8 +181,6 @@ def mainloop():
                 # Get the position of the mouse cursor
                 (x, y) = pygame.mouse.get_pos()
                 plotPhoto(xTurn, x, y)
-
-
                 if (duplicate):
                     xTurn = xTurn
                 else:
@@ -264,11 +189,9 @@ def mainloop():
             if (checkWin(resultArr)):
 
                 if (crossWin):
-
                     pygame.draw.rect(screen, "white", (180, 500, 150, 60))
                     pygame.draw.rect(screen, "dark gray", (45, 150, 400, 200))
                     screen.blit(xWins, (110, 220))
-
                 elif (circleWin == True):
                     pygame.draw.rect(screen, "white", (180, 500, 150, 60))
                     pygame.draw.rect(screen, "dark gray", (45, 150, 400, 200))
@@ -276,7 +199,6 @@ def mainloop():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
             pygame.display.update()
 
 mainloop()
